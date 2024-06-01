@@ -12,7 +12,9 @@ export class Reserve1716103362842 implements MigrationInterface {
           "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
           "updated_at" TIMESTAMP, 
           "deleted_at" TIMESTAMP, 
-        CONSTRAINT "PK_reserve_id" PRIMARY KEY ("id"))`,
+        CONSTRAINT "PK_reserve_id" PRIMARY KEY ("id"),
+        CONSTRAINT "FK_room_id" FOREIGN KEY ("room_id") REFERENCES "room"("id") ON DELETE CASCADE
+      )`,
     );
   }
 

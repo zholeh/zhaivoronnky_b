@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoomStoreService } from './room/room.service';
+import { ReserveStoreService } from './reserve/reserve.service';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { RoomStoreService } from './room/room.service';
     }),
   ],
 
-  providers: [RoomStoreService],
+  providers: [RoomStoreService, ReserveStoreService],
 })
 export class StoreModule {}
