@@ -46,16 +46,6 @@ export class ReserveStoreService {
   }
 
   async create(input: any) {
-    // Check if ID exists in the room table
-    const roomExists = await this.dataSource
-      .createQueryBuilder()
-      .select()
-      .from(this.roomTable, this.roomTable)
-      .where('id = :id', { id: input.roomId })
-      .getOne();
-
-    if (!roomExists) throw new Error('Room ID does not exist');
-
     const data = transformObjectKeysToSnakeCase(input);
     await this.dataSource
       .createQueryBuilder()
@@ -68,16 +58,6 @@ export class ReserveStoreService {
   }
 
   async update(input: any) {
-    // Check if ID exists in the room table
-    const roomExists = await this.dataSource
-      .createQueryBuilder()
-      .select()
-      .from(this.roomTable, this.roomTable)
-      .where('id = :id', { id: input.roomId })
-      .getOne();
-
-    if (!roomExists) throw new Error('Room ID does not exist');
-
     const data = transformObjectKeysToSnakeCase({
       ...input,
       updatedAt: new Date(),
