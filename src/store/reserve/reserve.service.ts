@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { ReserveSchema } from '../../schema';
-import {
-  transformObjectKeysToCamelCase,
-  transformObjectKeysToSnakeCase,
-} from '../../helper';
+import { transformObjectKeys } from '../../helper';
 
 @Injectable()
 export class ReserveStoreService {
@@ -22,14 +19,14 @@ export class ReserveStoreService {
       .getRawOne();
 
     if (!result) return undefined;
-    return ReserveSchema.parse(transformObjectKeysToCamelCase(result));
+    return ReserveSchema.parse(transformObjectKeys(result).toCamel());
   }
 
   async findOneOrFail(id: number): Promise<any> {
     const result = await this.findOne(id);
 
     if (!result) throw new Error(`Reserve with id ${id} not found`);
-    return ReserveSchema.parse(transformObjectKeysToCamelCase(result));
+    return ReserveSchema.parse(transformObjectKeys(result).toCamel());
   }
 
   async findMany(): Promise<any[]> {
@@ -41,12 +38,12 @@ export class ReserveStoreService {
       .getRawMany();
 
     return result.map((item) =>
-      ReserveSchema.parse(transformObjectKeysToCamelCase(item)),
+      ReserveSchema.parse(transformObjectKeys(item).toCamel()),
     );
   }
 
   async create(input: any) {
-    const data = transformObjectKeysToSnakeCase(input);
+    const data = transformObjectKeys(input).toSnake();
     await this.dataSource
       .createQueryBuilder()
       .insert()
@@ -58,10 +55,10 @@ export class ReserveStoreService {
   }
 
   async update(input: any) {
-    const data = transformObjectKeysToSnakeCase({
+    const data = transformObjectKeys({
       ...input,
       updatedAt: new Date(),
-    });
+    }).toSnake();
 
     await this.dataSource
       .createQueryBuilder()
