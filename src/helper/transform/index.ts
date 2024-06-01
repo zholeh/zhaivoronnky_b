@@ -1,2 +1,2 @@
-export * from './camelToSnake';
-export * from './snakeToCamel';
+export * from './transformCase';
+export * from './transformObjectKeys';

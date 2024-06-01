@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { RoomCreateSchema, RoomSchema, RoomUpdateSchema } from '../../schema';
-import {
-  transformObjectKeysToCamelCase,
-  transformObjectKeysToSnakeCase,
-} from '../../helper';
+import { transformObjectKeys } from '../../helper';
 
 @Injectable()
 export class RoomStoreService {
@@ -21,14 +18,14 @@ export class RoomStoreService {
       .getRawOne();
 
     if (!result) return undefined;
-    return RoomSchema.parse(transformObjectKeysToCamelCase(result));
+    return RoomSchema.parse(transformObjectKeys(result).toCamel());
   }
 
   async findOneOrFail(id: number): Promise<RoomSchema> {
     const result = await this.findOne(id);
 
     if (!result) throw new Error(`Room with id ${id} }not found`);
-    return RoomSchema.parse(transformObjectKeysToCamelCase(result));
+    return RoomSchema.parse(transformObjectKeys(result).toCamel());
   }
 
   async findMany(): Promise<RoomSchema[]> {
@@ -40,12 +37,12 @@ export class RoomStoreService {
       .getRawMany();
 
     return result.map((item) =>
-      RoomSchema.parse(transformObjectKeysToCamelCase(item)),
+      RoomSchema.parse(transformObjectKeys(item).toCamel()),
     );
   }
 
   async create(input: RoomCreateSchema) {
-    const data = transformObjectKeysToSnakeCase(input);
+    const data = transformObjectKeys(input).toSnake();
     await this.dataSource
       .createQueryBuilder()
       .insert()
@@ -57,10 +54,10 @@ export class RoomStoreService {
   }
 
   async update(input: RoomUpdateSchema) {
-    const data = transformObjectKeysToSnakeCase({
+    const data = transformObjectKeys({
       ...input,
       updatedAt: new Date(),
-    });
+    }).toSnake();
 
     await this.dataSource
       .createQueryBuilder()
