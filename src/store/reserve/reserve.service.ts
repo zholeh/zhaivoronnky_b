@@ -15,7 +15,7 @@ export class ReserveStoreService extends Store<
 > {
   protected Schema = ReserveSchema;
   protected table = 'reserve';
-  constructor(dataSource: DataSource) {
+  constructor(protected readonly dataSource: DataSource) {
     super(dataSource);
   }
 }

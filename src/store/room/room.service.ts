@@ -14,10 +14,7 @@ export class RoomStoreService extends Store<
   protected Schema = RoomSchema;
   protected UpdateSchema = RoomUpdateSchema;
   protected table = 'room';
-  constructor(dataSource: DataSource) {
+  constructor(protected readonly dataSource: DataSource) {
     super(dataSource);
-    this.findOne(1).then((result) => {
-      console.log(result);
-    });
   }
 }
