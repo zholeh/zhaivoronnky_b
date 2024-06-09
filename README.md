@@ -11,3 +11,5 @@
 11. Logging +
 12. Errors
 13. Health check
+14. Functional Tests
+15. Integration Tests

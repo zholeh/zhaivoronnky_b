@@ -12,9 +12,7 @@ import {
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RoomStoreService } from '../../store/room/room.service';
 import { RoomCreateSchema, RoomSchema, RoomUpdateSchema } from '../../schema';
-import { RoomModel } from './dto/room.model';
-import { RoomCreate } from './dto/room.create';
-import { RoomUpdate } from './dto/room.update';
+import { RoomCreate, RoomModel, RoomUpdate } from './dto';
 
 @ApiTags('Room')
 @Controller('room')
