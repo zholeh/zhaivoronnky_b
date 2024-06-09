@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RoomStoreService } from './room/room.service';
-import { ReserveStoreService } from './reserve/reserve.service';
 import { config } from '../config';
+import { RoomStoreService } from './room';
+import { ReserveStoreService } from './reserve';
+
+const providers = [RoomStoreService, ReserveStoreService];
 
 @Module({
   imports: [
@@ -12,6 +14,7 @@ import { config } from '../config';
     }),
   ],
 
-  providers: [RoomStoreService, ReserveStoreService],
+  providers: providers,
+  exports: providers,
 })
 export class StoreModule {}
