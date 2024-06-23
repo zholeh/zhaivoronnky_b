@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { StoreModule } from './store/store.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ControllerModule } from './controller/controller.module';
+import { GqlModule } from './gql/gql.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ControllerModule } from './controller/controller.module';
       },
     }),
     ControllerModule,
+    GqlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

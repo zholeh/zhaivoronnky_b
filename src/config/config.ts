@@ -14,9 +14,11 @@ dotenv.config({ path: files, override: true });
 import { db } from './db';
 import { logger } from './logger';
 import { app } from './app';
+import { graphql } from './graphql';
 
 export const config = {
   db,
   logger,
   app,
+  graphql,
 };
