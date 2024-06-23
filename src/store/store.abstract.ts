@@ -1,9 +1,10 @@
 import { DataSource } from 'typeorm';
 import { transformObjectKeys } from '../helper';
-import { TypeOf, ZodObject, ZodRawShape } from 'zod';
+import { BRAND, TypeOf, ZodObject, ZodRawShape } from 'zod';
 
 export abstract class Store<
   Entity extends ZodObject<ZodRawShape>,
+  EntityId extends number & BRAND<string>,
   CreateEntity extends ZodObject<ZodRawShape>,
   UpdateEntity extends ZodObject<ZodRawShape>,
 > {
@@ -12,7 +13,7 @@ export abstract class Store<
   protected abstract table: string;
   protected abstract Schema: Entity;
 
-  async findOne(id: number): Promise<TypeOf<Entity> | undefined> {
+  async findOne(id: EntityId): Promise<TypeOf<Entity> | undefined> {
     const result = await this.dataSource
       .createQueryBuilder()
       .select('*')
@@ -25,7 +26,7 @@ export abstract class Store<
     return this.Schema.parse(transformObjectKeys(result).toCamel());
   }
 
-  async findOneOrFail(id: number): Promise<TypeOf<Entity>> {
+  async findOneOrFail(id: EntityId): Promise<TypeOf<Entity>> {
     const result = await this.findOne(id);
 
     if (!result) throw new Error(`Room with id ${id} }not found`);

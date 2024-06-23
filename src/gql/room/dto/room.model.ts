@@ -1,10 +1,10 @@
-import { RoomSchema } from '../../../schema';
+import { RoomId, RoomSchema } from '../../../schema';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class RoomModel implements RoomSchema {
   @Field(() => Int)
-  readonly id!: number;
+  readonly id!: RoomId;
 
   @Field()
   readonly name!: string;

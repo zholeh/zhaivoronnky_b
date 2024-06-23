@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { RoomSchema } from '../../../schema';
+import { RoomSchema, RoomId } from '../../../schema';
 
 export class RoomModel implements RoomSchema {
   @ApiProperty({ type: 'integer' })
-  readonly id!: number;
+  readonly id!: RoomId;
 
   @ApiProperty({ type: String })
   readonly name!: string;
