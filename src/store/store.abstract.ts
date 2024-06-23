@@ -1,10 +1,22 @@
 import { DataSource } from 'typeorm';
 import { transformObjectKeys } from '../helper';
-import { BRAND, TypeOf, ZodObject, ZodRawShape } from 'zod';
+import {
+  TypeOf,
+  ZodBranded,
+  ZodNumber,
+  ZodObject,
+  ZodRawShape,
+  ZodTypeAny,
+} from 'zod';
+
+type ZodEntityWithId = ZodObject<
+  {
+    [k: string]: ZodTypeAny;
+  } & { id: ZodBranded<ZodNumber, string> }
+>;
 
 export abstract class Store<
-  Entity extends ZodObject<ZodRawShape>,
-  EntityId extends number & BRAND<string>,
+  Entity extends ZodEntityWithId,
   CreateEntity extends ZodObject<ZodRawShape>,
   UpdateEntity extends ZodObject<ZodRawShape>,
 > {
@@ -13,7 +25,7 @@ export abstract class Store<
   protected abstract table: string;
   protected abstract Schema: Entity;
 
-  async findOne(id: EntityId): Promise<TypeOf<Entity> | undefined> {
+  async findOne(id: TypeOf<Entity>['id']): Promise<TypeOf<Entity> | undefined> {
     const result = await this.dataSource
       .createQueryBuilder()
       .select('*')
@@ -26,7 +38,7 @@ export abstract class Store<
     return this.Schema.parse(transformObjectKeys(result).toCamel());
   }
 
-  async findOneOrFail(id: EntityId): Promise<TypeOf<Entity>> {
+  async findOneOrFail(id: TypeOf<Entity>['id']): Promise<TypeOf<Entity>> {
     const result = await this.findOne(id);
 
     if (!result) throw new Error(`Room with id ${id} }not found`);

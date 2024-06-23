@@ -11,7 +11,12 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RoomStoreService } from '../../store/room/room.service';
-import { RoomCreateSchema, RoomSchema, RoomUpdateSchema } from '../../schema';
+import {
+  RoomCreateSchema,
+  RoomId,
+  RoomSchema,
+  RoomUpdateSchema,
+} from '../../schema';
 import { RoomCreate, RoomModel, RoomUpdate } from './dto';
 
 @ApiTags('Room')
@@ -21,7 +26,7 @@ export class RoomController {
 
   @Get(':id(\\d+)')
   @ApiResponse({ status: 200, type: RoomModel })
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<RoomModel> {
+  async findOne(@Param('id', ParseIntPipe) id: RoomId): Promise<RoomModel> {
     return this.service.findOneOrFail(id);
   }
 

@@ -1,7 +1,10 @@
 import { z } from 'zod';
 
+export const ReserveId = z.number().brand('ReserveId');
+export type ReserveId = z.infer<typeof ReserveId>;
+
 export const ReserveSchema = z.object({
-  id: z.number(),
+  id: ReserveId,
   roomId: z.number(),
   state: z.boolean(),
   startDate: z.date(),
