@@ -31,7 +31,7 @@ async function bootstrap() {
     logger.log(`Open Api started on ${port}/${openApiPath}`);
   }
   if (config.graphql.playground) {
-    logger.log(`Graphql Playground started on ${port}/${config.graphql.path}`);
+    logger.log(`Graphql Playground started on ${port}/${config.graphql.pathGraphQl}`);
   }
 }
 bootstrap();

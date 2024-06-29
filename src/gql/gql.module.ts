@@ -5,6 +5,7 @@ import { config } from '../config';
 import { MainResolver } from './query.resolver';
 import { RoomModule } from './room/room.module';
 import { MainMutationResolver } from './mutation.resolver';
+import { ReserveModule } from './reserve/reserve.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MainMutationResolver } from './mutation.resolver';
       ...config.graphql,
     }),
     RoomModule,
+    ReserveModule
   ],
   providers: [MainResolver, MainMutationResolver],
 })
