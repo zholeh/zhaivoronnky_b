@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const schema = z.object({
-  path: z.string().default('graphql'),
+  pathGraphQl: z.string().default('graphql'),
   playground: z.preprocess((arg) => {
     if (typeof arg === 'string') {
       return arg.trim().toLowerCase() === 'true';

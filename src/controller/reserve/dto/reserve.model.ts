@@ -1,12 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { ReserveId, ReserveSchema } from "../../../schema";
+import { ReserveId, ReserveSchema, RoomId } from "../../../schema";
 
 export class ReserveModel implements ReserveSchema {
   @ApiProperty({ type: 'integer' })
   readonly id!: ReserveId;
 
   @ApiProperty({ type: 'integer' })
-  readonly roomId!: number;
+  readonly roomId!: RoomId;
 
   @ApiProperty({ type: Boolean })
   readonly state!: boolean;

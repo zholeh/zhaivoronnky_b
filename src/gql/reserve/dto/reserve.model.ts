@@ -1,4 +1,4 @@
-import { ReserveId, ReserveSchema } from "../../../schema";
+import { ReserveId, ReserveSchema, RoomId } from "../../../schema";
 import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
@@ -7,7 +7,7 @@ export class ReserveModel implements ReserveSchema {
   readonly id!: ReserveId;
 
   @Field()
-  readonly roomId!: number;
+  readonly roomId!: RoomId;
 
   @Field()
   readonly state!: boolean;
@@ -21,9 +21,9 @@ export class ReserveModel implements ReserveSchema {
   @Field()
   readonly createdAt!: Date;
 
-  @Field()
+  @Field(() => Date, { nullable: true })
   readonly updatedAt!: Date | null;
 
-  @Field()
+  @Field(() => Date, { nullable: true })
   readonly deletedAt!: Date | null;
 }

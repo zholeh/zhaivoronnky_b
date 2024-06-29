@@ -1,10 +1,10 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { ReserveCreateSchema } from "../../../schema";
+import { ReserveCreateSchema, RoomId } from "../../../schema";
 
 @InputType()
 export class ReserveCreate implements ReserveCreateSchema{
   @Field()
-  readonly roomId!: number;
+  readonly roomId!: RoomId;
 
   @Field()
   readonly state!: boolean;
