@@ -21,6 +21,7 @@ async function bootstrap() {
   }
   app.useLogger(app.get(Logger));
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
 
   await app.listen(config.app.appPort);
   const logger = new NestLogger('maim');
@@ -31,7 +32,9 @@ async function bootstrap() {
     logger.log(`Open Api started on ${port}/${openApiPath}`);
   }
   if (config.graphql.playground) {
-    logger.log(`Graphql Playground started on ${port}/${config.graphql.pathGraphQl}`);
+    logger.log(
+      `Graphql Playground started on ${port}/${config.graphql.pathGraphQl}`,
+    );
   }
 }
 bootstrap();
